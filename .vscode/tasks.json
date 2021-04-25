@@ -1,0 +1,19 @@
+{
+    "version": "2.0.0",
+    "tasks": [{
+        "label": "Build with Clang",
+        "type": "shell",
+        "command": "clang",
+        "args": [
+            "-g", "${workspaceFolder}/*.c",
+            "-I", "${workspaceFolder}",
+            "-o",
+            "${fileDirname}/${fileBasenameNoExtension}",
+            "-lsdl2"
+        ],
+        "group": {
+            "kind": "build",
+            "isDefault": true
+        }
+    }]
+}
