@@ -3,17 +3,24 @@
     "tasks": [{
         "label": "Build with Clang",
         "type": "shell",
-        "command": "clang",
+        "command": "/usr/bin/clang",
         "args": [
             "-g", "${workspaceFolder}/*.c",
             "-I", "${workspaceFolder}",
             "-o",
             "${fileDirname}/${fileBasenameNoExtension}",
-            "-lsdl2"
+            // "-lsdl2"
         ],
         "group": {
             "kind": "build",
             "isDefault": true
-        }
+        },
+        "options": {
+			"cwd": "/usr/bin"
+		},
+		"problemMatcher": [
+			"$gcc"
+		],
+
     }]
 }

@@ -5,20 +5,20 @@
     "version": "0.2.0",
     "configurations": [{
       "name": "debug",
-      "type": "cppdbg",
+      "type": "lldb",
       "request": "launch",
       "program": "${fileDirname}/${fileBasenameNoExtension}",
       "args": [],
-      "stopAtEntry": false,
+      // "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
-      "environment": [],
-      "externalConsole": false,
-      "MIMode": "lldb",
-      "logging": {
-        "trace": true,
-        "traceResponse": true,
-        "engineLogging": true
-      },
+      // "environment": [],
+      // "externalConsole": false,
+      // "MIMode": "lldb",
+      // "logging": {
+      //   "trace": true,
+      //   "traceResponse": true,
+      //   "engineLogging": true
+      // },
       "preLaunchTask": "Build with Clang",
     }]
   }
