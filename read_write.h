@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define MAX_LINE 1024
+#define BUFFER_LIMIT 1024
 
 // read information from file
 // success return 0 else 1

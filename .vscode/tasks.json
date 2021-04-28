@@ -9,7 +9,10 @@
             "-I", "${workspaceFolder}",
             "-o",
             "${fileDirname}/${fileBasenameNoExtension}",
-            // "-lsdl2"
+
+            "-lSDL2main",
+            "-lSDL2",
+            // "-mwindows"
         ],
         "group": {
             "kind": "build",
