@@ -3,10 +3,15 @@
 #include <string.h>
 #include "lifegame.h"
 
-int **create_map(unsigned int *pMaxrow,
-                 unsigned int *pMaxcol)
+int **create_map(const unsigned int *pMaxrow,
+                 const unsigned int *pMaxcol)
 {
     int **p = (int **)malloc(sizeof(int *) * (*pMaxrow));
+    if ((*pMaxrow) <= 0 || (*pMaxcol) <= 0)
+    {
+        int **p = NULL;
+        return p;
+    }
     for (int i = 0; i < (*pMaxrow); ++i)
     {
         p[i] = (int *)malloc(sizeof(int) * (*pMaxcol));
@@ -22,9 +27,19 @@ int **create_map(unsigned int *pMaxrow,
     return p;
 }
 
-int insert_map(FILE *file, unsigned int *pMaxrow,
-               unsigned int *pMaxcol, int **map)
+int insert_map(FILE *file, const unsigned int *pMaxrow,
+               const unsigned int *pMaxcol, int **map)
 {
+    if (((*pMaxcol) <= 0) || ((*pMaxrow) <= 0))
+    {
+        return -2;
+    }
+
+    if (file == NULL)
+    {
+        return -1;
+    }
+
     char buf[BUFFER_LIMIT];
     memset(buf, 0, sizeof(buf));
     int len = 0;
@@ -53,8 +68,8 @@ int insert_map(FILE *file, unsigned int *pMaxrow,
     }
     return 0;
 }
-int check_next(unsigned int *pMaxrow,
-               unsigned int *pMaxcol, int **map)
+int check_next(const unsigned int *pMaxrow,
+               const unsigned int *pMaxcol, int **map)
 {
     int count = 0;
     int **temp_map = create_map(pMaxrow, pMaxcol);
@@ -156,8 +171,8 @@ int check_next(unsigned int *pMaxrow,
     return 0;
 }
 
-int check_same(unsigned int *pMaxrow,
-               unsigned int *pMaxcol, int **map)
+int check_same(const unsigned int *pMaxrow,
+               const unsigned int *pMaxcol, int **map)
 {
     int count = 0;
     int **temp_map = create_map(pMaxrow, pMaxcol);
@@ -279,7 +294,7 @@ int isalldigit(char *str)
         return 0;
     }
 }
-unsigned int max_Fun(unsigned int x,unsigned int y)
+unsigned int max_Fun(unsigned int x, unsigned int y)
 {
     if (x > y)
     {
@@ -289,6 +304,4 @@ unsigned int max_Fun(unsigned int x,unsigned int y)
     {
         return y;
     }
-
-
 }

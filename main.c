@@ -4,65 +4,6 @@
 #include <string.h>
 #include "read_write.h"
 #include "lifegame.h"
-// int main(int argc, char* argv[])//C语言完整格式
-// {
-
-// 	if(SDL_Init(SDL_INIT_VIDEO) == -1){	//SDL_初始化
-// 		printf("Could not initialize SDL!\n");
-// 		return 0;
-// 	}
-// 	printf("SDL initialized.\n");
-// 	//
-// 	//创建窗口
-// 	SDL_Window *win = SDL_CreateWindow("Hello World!",
-// 			 0, SDL_WINDOWPOS_CENTERED,
-// 			 300, 300, SDL_WINDOW_SHOWN);
-// 	//创建渲染器
-// 	SDL_Renderer *ren = SDL_CreateRenderer(win, -1,
-// 			 SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-
-// 	//创建表面
-// 	SDL_Surface *temp_Surface = SDL_LoadBMP("llllll.bmp");
-
-// 	if(win == NULL || ren == NULL || temp_Surface == NULL)
-// 		printf("%s\n",SDL_GetError());
-
-//     //创建材质
-//     SDL_Texture *tex = NULL;
-//     tex = SDL_CreateTextureFromSurface(ren, temp_Surface);
-//     //清空渲染器
-//     SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
-//     SDL_RenderClear(ren);
-//     //将材质复制到渲染器
-//     SDL_RenderCopy(ren, tex, NULL, NULL);
-//     //呈现渲染器
-//     SDL_RenderPresent(ren);
-
-// 	int quit = 0;//退出
-// 	SDL_Event event;//监听退出活动
-
-// 	while (!quit)
-// 	{//主消息循环
-// 		SDL_WaitEvent(&event);
-// 		switch (event.type)
-// 		{
-// 			//用户从菜单要求退出程序
-// 			case SDL_QUIT:
-// 				quit = 1;
-// 				break;
-// 		}
-// 	}
-
-// 	//清理资源
-// 	SDL_DestroyTexture(tex);
-// 	SDL_FreeSurface(temp_Surface);
-// 	SDL_DestroyRenderer(ren);
-// 	if(SDL_GetError())
-// 		printf("%s\n",SDL_GetError());
-// 	SDL_Quit();	//退出SDL调用
-
-// 	return 0;
-// }
 
 //Screen dimension constants
 int main(int argc, char *argv[])
@@ -80,10 +21,12 @@ int main(int argc, char *argv[])
     int y_get = 0;
     int row = 0;
     int col = 0;
+    int drag = 0;
+    int count = 0;
 
     printf("Welcome to Game of Life!\n");
     printf("Please choose an option:\n");
-    printf("(1) Read the exit file.\n");
+    printf("(1) Read the exist file.\n");
     printf("(2) Customization.\n");
     printf("(3) Quit.\n");
     printf("  Option: ");
@@ -113,6 +56,12 @@ int main(int argc, char *argv[])
     if (strcmp(option, "1") == 0)
     {
         file = fopen("test.txt", "r");
+        if (file == NULL)
+        {
+            printf("no file to store.\n");
+            goto END;
+        }
+
         read_file(file, &Maxrow, &Maxcol);
         int **map = create_map(&Maxrow, &Maxcol);
         fclose(file);
@@ -127,9 +76,17 @@ int main(int argc, char *argv[])
         {
             PX = 500 / max_Fun(Maxcol, Maxrow);
         }
-        else
+        else if (max_Fun(Maxcol, Maxrow) < 100)
+        {
+            PX = 600 / max_Fun(Maxcol, Maxrow);
+        }
+        else if (max_Fun(Maxcol, Maxrow) < 500)
         {
             PX = 800 / max_Fun(Maxcol, Maxrow);
+        }
+        else
+        {
+            PX = 1000 / max_Fun(Maxcol, Maxrow);
         }
 
         //初始化sdl
@@ -232,8 +189,10 @@ int main(int argc, char *argv[])
                 }
                 if (SDL_BUTTON_RIGHT == event.button.button)
                 {
-                    while (check_same(&Maxrow, &Maxcol, map) == 0)
+                    count = 0;
+                    while (check_same(&Maxrow, &Maxcol, map) == 0 && count < 200)
                     {
+                        count++;
                         check_next(&Maxrow, &Maxcol, map);
                         SDL_SetRenderDrawColor(ren, 225, 255, 225, 225);
 
@@ -345,7 +304,7 @@ int main(int argc, char *argv[])
                     }
 
                     SDL_RenderPresent(ren);
-                    SDL_Delay(500);
+                    SDL_Delay(300);
                 }
                 times = 0;
             }
@@ -359,8 +318,9 @@ int main(int argc, char *argv[])
         }
         free(map);
     }
-    if (strcmp(option, "2") == 0)
+    else if (strcmp(option, "2") == 0)
     {
+    INPUTNUM:
         printf("Please input the number of row: ");
         memset(row_str, 0, sizeof(row_str));
         fgets(row_str, 100, stdin);
@@ -394,6 +354,11 @@ int main(int argc, char *argv[])
             fflush(stdin);
         }
         Maxcol = strtoul(col_str, NULL, 10);
+        if (Maxcol > 501 || Maxrow > 501)
+        {
+            printf("the number of row and col shouldn't bigger than 500.\n");
+            goto INPUTNUM;
+        }
 
         if (max_Fun(Maxcol, Maxrow) < 10)
         {
@@ -403,9 +368,17 @@ int main(int argc, char *argv[])
         {
             PX = 500 / max_Fun(Maxcol, Maxrow);
         }
-        else
+        else if (max_Fun(Maxcol, Maxrow) < 100)
+        {
+            PX = 600 / max_Fun(Maxcol, Maxrow);
+        }
+        else if (max_Fun(Maxcol, Maxrow) < 500)
         {
             PX = 800 / max_Fun(Maxcol, Maxrow);
+        }
+        else
+        {
+            PX = 1000 / max_Fun(Maxcol, Maxrow);
         }
         int **map = create_map(&Maxrow, &Maxcol);
         //初始化sdl
@@ -466,8 +439,8 @@ int main(int argc, char *argv[])
             case SDL_QUIT:
                 quit = 1;
                 break;
-            case SDL_MOUSEBUTTONDOWN:
-                if (SDL_BUTTON_LEFT == event.button.button)
+            case SDL_MOUSEMOTION:
+                if (drag == 1)
                 {
                     x_get = event.button.x;
                     y_get = event.button.y;
@@ -511,6 +484,19 @@ int main(int argc, char *argv[])
 
                     SDL_RenderPresent(ren);
                 }
+
+                break;
+            case SDL_MOUSEBUTTONDOWN:
+                if (SDL_BUTTON_LEFT == event.button.button)
+                {
+                    drag = 1;
+                }
+                break;
+            case SDL_MOUSEBUTTONUP:
+                if (SDL_BUTTON_LEFT == event.button.button)
+                {
+                    drag = 0;
+                }
                 break;
             case SDL_KEYDOWN:
                 if (SDLK_RETURN == event.key.keysym.sym)
@@ -549,6 +535,49 @@ int main(int argc, char *argv[])
                     }
 
                     SDL_RenderPresent(ren);
+                }
+                if (SDLK_g == event.key.keysym.sym)
+                {
+                    count = 0;
+                    while (check_same(&Maxrow, &Maxcol, map) == 0 && count < 200)
+                    {
+                        count++;
+                        check_next(&Maxrow, &Maxcol, map);
+                        SDL_SetRenderDrawColor(ren, 225, 255, 225, 225);
+
+                        /* Clear the entire screen to our selected color. */
+                        SDL_RenderClear(ren);
+
+                        SDL_SetRenderDrawColor(ren, 0, 0, 0, 225);
+                        for (int i = 0; i < Maxrow; i++)
+                        {
+                            //绘制直线
+                            SDL_RenderDrawLine(ren, 0, i * PX, Maxcol * PX, i * PX);
+                        }
+                        for (int i = 0; i < Maxcol; i++)
+                        {
+                            //绘制直线
+                            SDL_RenderDrawLine(ren, i * PX, 0, i * PX, Maxrow * PX);
+                        }
+                        // 创建一个矩形
+                        for (int i = 0; i < Maxrow; i++)
+                        {
+                            for (int j = 0; j < Maxcol; j++)
+                            {
+                                if (map[i][j] == 1)
+                                {
+                                    SDL_Rect rect1 = {j * PX, i * PX, PX, PX};
+                                    //设置渲染颜色
+                                    SDL_SetRenderDrawColor(ren, 0, 0, 225, 225);
+                                    //绘制线框矩形
+                                    SDL_RenderFillRect(ren, &rect1);
+                                }
+                            }
+                        }
+
+                        SDL_RenderPresent(ren);
+                        SDL_Delay(300);
+                    }
                 }
                 if (event.key.keysym.sym == SDLK_1 || event.key.keysym.sym == SDLK_2 || event.key.keysym.sym == SDLK_3 || event.key.keysym.sym == SDLK_4 || event.key.keysym.sym == SDLK_5 || event.key.keysym.sym == SDLK_6 | event.key.keysym.sym == SDLK_7 || event.key.keysym.sym == SDLK_8 || event.key.keysym.sym == SDLK_9)
                 {
@@ -625,9 +654,16 @@ int main(int argc, char *argv[])
                 if (SDLK_s == event.key.keysym.sym)
                 {
                     file = fopen("test.txt", "w");
-                    write_file(file, &Maxrow, &Maxcol, map);
-                    fclose(file);
-                    quit = 1;
+                    if (file == NULL)
+                    {
+                        printf("no file to store.\n");
+                    }
+                    else
+                    {
+                        write_file(file, &Maxrow, &Maxcol, map);
+                        fclose(file);
+                        quit = 1;
+                    }
                 }
                 break;
             }

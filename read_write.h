@@ -8,5 +8,5 @@
 int read_file(FILE *file, unsigned int *pMaxrow,
               unsigned int *pMaxcol);
 // write information into file
-int write_file(FILE *file, unsigned int *pMaxrow,
-              unsigned int *pMaxcol, int **map);
+int write_file(FILE *file, const unsigned int *pMaxrow,
+              const unsigned int *pMaxcol, int **map);
