@@ -5,7 +5,7 @@
 #include "read_write.h"
 #include "lifegame.h"
 
-//Screen dimension constants
+
 int main(int argc, char *argv[])
 {
     unsigned int Maxrow;
@@ -89,11 +89,8 @@ int main(int argc, char *argv[])
             PX = 1000 / max_Fun(Maxcol, Maxrow);
         }
 
-        //初始化sdl
         SDL_Init(SDL_INIT_EVERYTHING);
-        //创建窗口
         SDL_Window *win = SDL_CreateWindow("Game of Life", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Maxcol * PX, Maxrow * PX, SDL_WINDOW_SHOWN);
-        //创建一个渲染器
         SDL_Renderer *ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
         SDL_SetRenderDrawColor(ren, 225, 255, 225, 225);
@@ -104,16 +101,13 @@ int main(int argc, char *argv[])
         SDL_SetRenderDrawColor(ren, 0, 0, 0, 225);
         for (int i = 0; i < Maxrow; i++)
         {
-            //绘制直线
             SDL_RenderDrawLine(ren, 0, i * PX, Maxcol * PX, i * PX);
         }
         for (int i = 0; i < Maxcol; i++)
         {
-            //绘制直线
             SDL_RenderDrawLine(ren, i * PX, 0, i * PX, Maxrow * PX);
         }
 
-        // 创建一个矩形
         for (int i = 0; i < Maxrow; i++)
         {
             for (int j = 0; j < Maxcol; j++)
@@ -121,30 +115,26 @@ int main(int argc, char *argv[])
                 if (map[i][j] == 1)
                 {
                     SDL_Rect rect1 = {j * PX, i * PX, PX, PX};
-                    //设置渲染颜色
+                
                     SDL_SetRenderDrawColor(ren, 0, 0, 225, 225);
-                    //绘制线框矩形
+                  
                     SDL_RenderFillRect(ren, &rect1);
                 }
             }
         }
 
-        // //设置渲染颜色
-        // SDL_SetRenderDrawColor(ren, 0, 0, 225, 225);
-        // //绘制线框矩形
-        // SDL_RenderDrawRect(ren, &rect1);
 
-        //更新屏幕
+
         SDL_RenderPresent(ren);
-        int quit = 0;    //退出
-        SDL_Event event; //监听退出活动
+        int quit = 0;    
+        SDL_Event event; 
 
         while (!quit)
-        { //主消息循环
+        { 
             SDL_WaitEvent(&event);
             switch (event.type)
             {
-            //用户从菜单要求退出程序
+           
             case SDL_QUIT:
                 quit = 1;
                 break;
@@ -161,15 +151,15 @@ int main(int argc, char *argv[])
                     SDL_SetRenderDrawColor(ren, 0, 0, 0, 225);
                     for (int i = 0; i < Maxrow; i++)
                     {
-                        //绘制直线
+                        
                         SDL_RenderDrawLine(ren, 0, i * PX, Maxcol * PX, i * PX);
                     }
                     for (int i = 0; i < Maxcol; i++)
                     {
-                        //绘制直线
+                        
                         SDL_RenderDrawLine(ren, i * PX, 0, i * PX, Maxrow * PX);
                     }
-                    // 创建一个矩形
+                   
                     for (int i = 0; i < Maxrow; i++)
                     {
                         for (int j = 0; j < Maxcol; j++)
@@ -177,9 +167,9 @@ int main(int argc, char *argv[])
                             if (map[i][j] == 1)
                             {
                                 SDL_Rect rect1 = {j * PX, i * PX, PX, PX};
-                                //设置渲染颜色
+                               
                                 SDL_SetRenderDrawColor(ren, 0, 0, 225, 225);
-                                //绘制线框矩形
+                               
                                 SDL_RenderFillRect(ren, &rect1);
                             }
                         }
@@ -202,15 +192,15 @@ int main(int argc, char *argv[])
                         SDL_SetRenderDrawColor(ren, 0, 0, 0, 225);
                         for (int i = 0; i < Maxrow; i++)
                         {
-                            //绘制直线
+                            
                             SDL_RenderDrawLine(ren, 0, i * PX, Maxcol * PX, i * PX);
                         }
                         for (int i = 0; i < Maxcol; i++)
                         {
-                            //绘制直线
+                            
                             SDL_RenderDrawLine(ren, i * PX, 0, i * PX, Maxrow * PX);
                         }
-                        // 创建一个矩形
+                        
                         for (int i = 0; i < Maxrow; i++)
                         {
                             for (int j = 0; j < Maxcol; j++)
@@ -218,9 +208,9 @@ int main(int argc, char *argv[])
                                 if (map[i][j] == 1)
                                 {
                                     SDL_Rect rect1 = {j * PX, i * PX, PX, PX};
-                                    //设置渲染颜色
+                                    
                                     SDL_SetRenderDrawColor(ren, 0, 0, 225, 225);
-                                    //绘制线框矩形
+                                    
                                     SDL_RenderFillRect(ren, &rect1);
                                 }
                             }
@@ -279,15 +269,15 @@ int main(int argc, char *argv[])
                     SDL_SetRenderDrawColor(ren, 0, 0, 0, 225);
                     for (int i = 0; i < Maxrow; i++)
                     {
-                        //绘制直线
+                        
                         SDL_RenderDrawLine(ren, 0, i * PX, Maxcol * PX, i * PX);
                     }
                     for (int i = 0; i < Maxcol; i++)
                     {
-                        //绘制直线
+                        
                         SDL_RenderDrawLine(ren, i * PX, 0, i * PX, Maxrow * PX);
                     }
-                    // 创建一个矩形
+                    
                     for (int i = 0; i < Maxrow; i++)
                     {
                         for (int j = 0; j < Maxcol; j++)
@@ -295,9 +285,8 @@ int main(int argc, char *argv[])
                             if (map[i][j] == 1)
                             {
                                 SDL_Rect rect1 = {j * PX, i * PX, PX, PX};
-                                //设置渲染颜色
+                             
                                 SDL_SetRenderDrawColor(ren, 0, 0, 225, 225);
-                                //绘制线框矩形
                                 SDL_RenderFillRect(ren, &rect1);
                             }
                         }
@@ -381,11 +370,11 @@ int main(int argc, char *argv[])
             PX = 1000 / max_Fun(Maxcol, Maxrow);
         }
         int **map = create_map(&Maxrow, &Maxcol);
-        //初始化sdl
+        
         SDL_Init(SDL_INIT_EVERYTHING);
-        //创建窗口
+     
         SDL_Window *win = SDL_CreateWindow("Game of Life", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Maxcol * PX, Maxrow * PX, SDL_WINDOW_SHOWN);
-        //创建一个渲染器
+     
         SDL_Renderer *ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
         SDL_SetRenderDrawColor(ren, 225, 255, 225, 225);
@@ -396,16 +385,16 @@ int main(int argc, char *argv[])
         SDL_SetRenderDrawColor(ren, 0, 0, 0, 225);
         for (int i = 0; i < Maxrow; i++)
         {
-            //绘制直线
+          
             SDL_RenderDrawLine(ren, 0, i * PX, Maxcol * PX, i * PX);
         }
         for (int i = 0; i < Maxcol; i++)
         {
-            //绘制直线
+           
             SDL_RenderDrawLine(ren, i * PX, 0, i * PX, Maxrow * PX);
         }
 
-        // 创建一个矩形
+        
         for (int i = 0; i < Maxrow; i++)
         {
             for (int j = 0; j < Maxcol; j++)
@@ -413,29 +402,23 @@ int main(int argc, char *argv[])
                 if (map[i][j] == 1)
                 {
                     SDL_Rect rect1 = {j * PX, i * PX, PX, PX};
-                    //设置渲染颜色
+                   
                     SDL_SetRenderDrawColor(ren, 0, 0, 225, 225);
-                    //绘制线框矩形
+                    
                     SDL_RenderFillRect(ren, &rect1);
                 }
             }
         }
 
-        // //设置渲染颜色
-        // SDL_SetRenderDrawColor(ren, 0, 0, 225, 225);
-        // //绘制线框矩形
-        // SDL_RenderDrawRect(ren, &rect1);
-
-        //更新屏幕
         SDL_RenderPresent(ren);
         int quit = 0;
         SDL_Event event;
         while (!quit)
-        { //主消息循环
+        { 
             SDL_WaitEvent(&event);
             switch (event.type)
             {
-            //用户从菜单要求退出程序
+           
             case SDL_QUIT:
                 quit = 1;
                 break;
@@ -458,15 +441,15 @@ int main(int argc, char *argv[])
                     SDL_SetRenderDrawColor(ren, 0, 0, 0, 225);
                     for (int i = 0; i < Maxrow; i++)
                     {
-                        //绘制直线
+                       
                         SDL_RenderDrawLine(ren, 0, i * PX, Maxcol * PX, i * PX);
                     }
                     for (int i = 0; i < Maxcol; i++)
                     {
-                        //绘制直线
+                        
                         SDL_RenderDrawLine(ren, i * PX, 0, i * PX, Maxrow * PX);
                     }
-                    // 创建一个矩形
+                    
                     for (int i = 0; i < Maxrow; i++)
                     {
                         for (int j = 0; j < Maxcol; j++)
@@ -474,9 +457,9 @@ int main(int argc, char *argv[])
                             if (map[i][j] == 1)
                             {
                                 SDL_Rect rect1 = {j * PX, i * PX, PX, PX};
-                                //设置渲染颜色
+                                
                                 SDL_SetRenderDrawColor(ren, 0, 0, 225, 225);
-                                //绘制线框矩形
+                              
                                 SDL_RenderFillRect(ren, &rect1);
                             }
                         }
@@ -510,15 +493,15 @@ int main(int argc, char *argv[])
                     SDL_SetRenderDrawColor(ren, 0, 0, 0, 225);
                     for (int i = 0; i < Maxrow; i++)
                     {
-                        //绘制直线
+                        
                         SDL_RenderDrawLine(ren, 0, i * PX, Maxcol * PX, i * PX);
                     }
                     for (int i = 0; i < Maxcol; i++)
                     {
-                        //绘制直线
+                       
                         SDL_RenderDrawLine(ren, i * PX, 0, i * PX, Maxrow * PX);
                     }
-                    // 创建一个矩形
+                    
                     for (int i = 0; i < Maxrow; i++)
                     {
                         for (int j = 0; j < Maxcol; j++)
@@ -526,9 +509,9 @@ int main(int argc, char *argv[])
                             if (map[i][j] == 1)
                             {
                                 SDL_Rect rect1 = {j * PX, i * PX, PX, PX};
-                                //设置渲染颜色
+                               
                                 SDL_SetRenderDrawColor(ren, 0, 0, 225, 225);
-                                //绘制线框矩形
+                                
                                 SDL_RenderFillRect(ren, &rect1);
                             }
                         }
@@ -551,15 +534,15 @@ int main(int argc, char *argv[])
                         SDL_SetRenderDrawColor(ren, 0, 0, 0, 225);
                         for (int i = 0; i < Maxrow; i++)
                         {
-                            //绘制直线
+                          
                             SDL_RenderDrawLine(ren, 0, i * PX, Maxcol * PX, i * PX);
                         }
                         for (int i = 0; i < Maxcol; i++)
                         {
-                            //绘制直线
+                         
                             SDL_RenderDrawLine(ren, i * PX, 0, i * PX, Maxrow * PX);
                         }
-                        // 创建一个矩形
+                      
                         for (int i = 0; i < Maxrow; i++)
                         {
                             for (int j = 0; j < Maxcol; j++)
@@ -567,9 +550,9 @@ int main(int argc, char *argv[])
                                 if (map[i][j] == 1)
                                 {
                                     SDL_Rect rect1 = {j * PX, i * PX, PX, PX};
-                                    //设置渲染颜色
+                                  
                                     SDL_SetRenderDrawColor(ren, 0, 0, 225, 225);
-                                    //绘制线框矩形
+                                
                                     SDL_RenderFillRect(ren, &rect1);
                                 }
                             }
@@ -622,15 +605,15 @@ int main(int argc, char *argv[])
                         SDL_SetRenderDrawColor(ren, 0, 0, 0, 225);
                         for (int i = 0; i < Maxrow; i++)
                         {
-                            //绘制直线
+                           
                             SDL_RenderDrawLine(ren, 0, i * PX, Maxcol * PX, i * PX);
                         }
                         for (int i = 0; i < Maxcol; i++)
                         {
-                            //绘制直线
+                           
                             SDL_RenderDrawLine(ren, i * PX, 0, i * PX, Maxrow * PX);
                         }
-                        // 创建一个矩形
+                      
                         for (int i = 0; i < Maxrow; i++)
                         {
                             for (int j = 0; j < Maxcol; j++)
@@ -638,9 +621,9 @@ int main(int argc, char *argv[])
                                 if (map[i][j] == 1)
                                 {
                                     SDL_Rect rect1 = {j * PX, i * PX, PX, PX};
-                                    //设置渲染颜色
+                                   
                                     SDL_SetRenderDrawColor(ren, 0, 0, 225, 225);
-                                    //绘制线框矩形
+                                    
                                     SDL_RenderFillRect(ren, &rect1);
                                 }
                             }

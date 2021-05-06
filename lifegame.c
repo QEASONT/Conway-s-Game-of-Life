@@ -51,16 +51,11 @@ int insert_map(FILE *file, const unsigned int *pMaxrow,
 
         len = strspn(buf, "0123456789");
 
-        // if ((buf[len-1]=='\n')||(buf[len-1]=='\r'))
-        // {
-        //     buf[len - 1] = '\0';
-        // }
-        // len = strlen(buf);
+     
         for (int i = 0; i < len; i++)
         {
             map[row][col] = buf[i] - '0';
-            // printf("%d  ",map[row][col]);
-            // printf("%c\n",buf[i]);
+            
             col++;
         }
         col = 0;

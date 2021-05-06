@@ -23,11 +23,7 @@ int read_file(FILE *file, unsigned int *pMaxrow,
     {
         (*pMaxrow)++;
         len = strspn(buf, "0123456789");
-        // if (buf[len - 1] == '\n')
-        // {
-        //     buf[len - 1] = '\0';
-        // }
-        // len = strlen(buf);
+
         if ((*pMaxrow) != 1)
         {
             if ((*pMaxcol) != len)
