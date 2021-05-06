@@ -33,12 +33,12 @@ void test_insert_map()
 {
   unsigned int Maxrow;
   unsigned int Maxcol;
-  FILE *file = fopen("test.txt", "r");
+  FILE *file = fopen("cell.txt", "r");
 
   read_file(file, &Maxrow, &Maxcol);
   fclose(file);
   int **map = create_map(&Maxrow, &Maxcol);
-  file = fopen("test.txt", "r");
+  file = fopen("cell.txt", "r");
   insert_map(file, &Maxrow, &Maxcol, map);
   fclose(file);
   TEST_ASSERT_EQUAL_INT_MESSAGE(1, map[1][2], "insert_map map[1][2] is not 1.");
@@ -49,14 +49,14 @@ void test_insert_map()
   file = NULL;
   int infback = insert_map(file, &Maxrow, &Maxcol, map);
   TEST_ASSERT_EQUAL_INT_MESSAGE(-1, infback, "insert_map while file = NULL, return not -1.");
-  file = fopen("test.txt", "r");
+  file = fopen("cell.txt", "r");
   Maxcol = 0;
   Maxrow = 2;
   infback = insert_map(file, &Maxrow, &Maxcol, map);
   fclose(file);
   TEST_ASSERT_EQUAL_INT_MESSAGE(-2, infback, "insert_map while file != NULL,Maxrow=0 return not -2.");
   printf("%d**************",infback);
-  file = fopen("test.txt", "r");
+  file = fopen("cell.txt", "r");
   Maxcol = 2;
   Maxrow = 0;
   infback = insert_map(file, &Maxrow, &Maxcol, map);
@@ -67,7 +67,7 @@ void test_read_file()
 {
   unsigned int Maxrow;
   unsigned int Maxcol;
-  FILE *file = fopen("test.txt", "r");
+  FILE *file = fopen("cell.txt", "r");
 
   read_file(file, &Maxrow, &Maxcol);
   fclose(file);

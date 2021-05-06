@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
     }
     if (strcmp(option, "1") == 0)
     {
-        file = fopen("test.txt", "r");
+        file = fopen("cell.txt", "r");
         if (file == NULL)
         {
             printf("no file to store.\n");
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
         read_file(file, &Maxrow, &Maxcol);
         int **map = create_map(&Maxrow, &Maxcol);
         fclose(file);
-        file = fopen("test.txt", "r");
+        file = fopen("cell.txt", "r");
         insert_map(file, &Maxrow, &Maxcol, map);
         fclose(file);
         if (max_Fun(Maxcol, Maxrow) < 10)
@@ -252,7 +252,7 @@ int main(int argc, char *argv[])
                     times = 9;
                     break;
                 case SDLK_s:
-                    file = fopen("test.txt", "w");
+                    file = fopen("cell.txt", "w");
                     write_file(file, &Maxrow, &Maxcol, map);
                     fclose(file);
                     quit = 1;
@@ -636,7 +636,7 @@ int main(int argc, char *argv[])
                 }
                 if (SDLK_s == event.key.keysym.sym)
                 {
-                    file = fopen("test.txt", "w");
+                    file = fopen("cell.txt", "w");
                     if (file == NULL)
                     {
                         printf("no file to store.\n");
